@@ -330,30 +330,29 @@
 
   // ---- 1층 실내 2.5D (AI 생성 그림 기준 좌표) ----
   const F1_2D = {
-    start: [1554, 947],
+    start: [1800, 905],
     mask: 'img/mask-f1.png',
     spots: [
-      { name:'정문', x:1718, y:1020, r:40, door:true, exit:true, out:[1180,930] },
-      { name:'후문', x:1103, y:710, r:40, door:true, exit:true, out:[1180,930] },
-      { name:'내부 계단', x:1322, y:850, r:55, door:true, choose:[2,3], useF:true },
-      { name:'엘리베이터', x:967, y:796, r:45, door:true, elev:true, useF:true },
-      { name:'외부 계단', x:1804, y:1228, r:70, door:true, stair:2, useF:true, at:[1700,1160] },
-      { name:'식당 입구', x:1783, y:833, r:45, door:true, exit:true, out:[1470,890] },
-      { name:'안내데스크', x:1395, y:979, r:50, color:'#E0C097', desc:'처음 오셨다면 여기서 이용 방법과 프로그램을 안내받을 수 있어요.', link:'#안내', linkLabel:'이용 안내' },
-      { name:'보글보글실(요리수업)', x:650, y:460, r:120, color:'#9BC53D', desc:'요리 수업이 열리는 조리 실습실이에요.', link:'#프로그램', linkLabel:'프로그램 보기' },
-      { name:'들락날락(밴드연습실)', x:560, y:614, r:70, color:'#E4572E', desc:'악기와 음향 장비가 있는 밴드 연습실이에요.', link:'#동아리', linkLabel:'동아리 보기' },
-      { name:'와글와글(노래방)', x:479, y:674, r:50, color:'#E96A8A', desc:'친구들과 노래 부르는 방이에요.', link:'#이용', linkLabel:'이용 방법' },
-      { name:'시끌벅적(노래방)', x:600, y:700, r:50, color:'#E96A8A', desc:'노래방 두 번째 방이에요.', link:'#이용', linkLabel:'이용 방법' },
-      { name:'상상스튜디오', x:455, y:843, r:100, color:'#5BC8D8', desc:'만들고 그리고 상상하는 창작 공간이에요.', link:'#프로그램', linkLabel:'프로그램 보기' },
-      { name:'퍼포먼스 스튜디오', x:731, y:941, r:120, color:'#C8102E', desc:'거울이 있는 댄스 연습실이에요. 댄스 동아리가 연습해요.', link:'#동아리', linkLabel:'동아리 보기' },
-      { name:'남자 탈의실', x:997, y:948, r:35, color:'#7A96C8', desc:'퍼포먼스 스튜디오 옆 남자 탈의실이에요.' },
-      { name:'여자 탈의실', x:943, y:1028, r:35, color:'#D282A0', desc:'퍼포먼스 스튜디오 옆 여자 탈의실이에요.' },
-      { name:'모둠방(게임방)', x:1059, y:1020, r:55, color:'#3F5FB5', desc:'오락기와 탁구대가 있는 게임방이에요. 친구들과 놀다 가요.', link:'#이용', linkLabel:'이용 방법' },
-      { name:'관장실', x:1171, y:1048, r:45, color:'#6B7A8F', desc:'관장실입니다.', link:'#기관소개', linkLabel:'기관 소개' },
-      { name:'꿈지기실(사무실)', x:1328, y:1078, r:70, color:'#6B7A8F', desc:'직원들이 일하는 사무실이에요. 문의와 접수를 도와드려요.', link:'#문의', linkLabel:'문의하기' },
-      { name:'안내실', x:1538, y:1080, r:50, color:'#EDE4D1', desc:'안내실입니다.', link:'#안내', linkLabel:'이용 안내' },
-      { name:'회의실', x:1483, y:1156, r:45, color:'#EDE4D1', desc:'안내실 뒤쪽 회의실이에요.', link:'#대관', linkLabel:'대관 신청' },
-      { name:'행복충전실(식당)', x:1968, y:727, r:180, color:'#EDE4D1', desc:'식사를 하는 곳이에요. 본관에서 바깥으로 나가 식당 입구로 들어가요.', link:'#이용', linkLabel:'이용 방법' },
+      { name:'정문', x:1832, y:945, r:45, door:true, exit:true, out:[1180,930] },
+      { name:'후문', x:1160, y:645, r:40, door:true, exit:true, out:[1180,930] },
+      { name:'내부 계단', x:1245, y:780, r:55, door:true, choose:[2,3], useF:true },
+      { name:'엘리베이터', x:1025, y:768, r:45, door:true, elev:true, useF:true },
+      { name:'외부 계단', x:1900, y:1140, r:70, door:true, stair:2, useF:true, at:[1700,1160] },
+      { name:'식당 입구', x:1832, y:740, r:45, door:true, exit:true, out:[1470,890] },
+      { name:'안내데스크', x:1490, y:925, r:55, color:'#E0C097', desc:'처음 오셨다면 여기서 이용 방법과 프로그램을 안내받을 수 있어요.', link:'#안내', linkLabel:'이용 안내' },
+      { name:'보글보글실', x:580, y:410, r:95, color:'#9BC53D', desc:'악기와 음향 장비가 있는 밴드 연습실이에요.', link:'#동아리', linkLabel:'동아리 보기' },
+      { name:'들락날락', x:490, y:555, r:60, color:'#E4572E', desc:'노래방 기기와 쉼터가 있는 방이에요.', link:'#이용', linkLabel:'이용 방법' },
+      { name:'와글와글', x:380, y:650, r:45, color:'#E96A8A', desc:'친구들과 노래 부르는 작은 노래방이에요.', link:'#이용', linkLabel:'이용 방법' },
+      { name:'시끌벅적', x:540, y:660, r:45, color:'#E96A8A', desc:'노래방 두 번째 방이에요.', link:'#이용', linkLabel:'이용 방법' },
+      { name:'상상스튜디오', x:380, y:830, r:95, color:'#5BC8D8', desc:'만들고 그리고 상상하는 창작 공간이에요.', link:'#프로그램', linkLabel:'프로그램 보기' },
+      { name:'퍼포먼스 스튜디오', x:730, y:920, r:120, color:'#C8102E', desc:'거울이 있는 댄스 연습실이에요. 댄스 동아리가 연습해요.', link:'#동아리', linkLabel:'동아리 보기' },
+      { name:'탈의실', x:1020, y:930, r:45, color:'#7A96C8', desc:'퍼포먼스 스튜디오 옆 탈의실이에요.' },
+      { name:'모둠방', x:1130, y:960, r:50, color:'#3F5FB5', desc:'탁구대가 있는 모둠방이에요. 친구들과 놀다 가요.', link:'#이용', linkLabel:'이용 방법' },
+      { name:'관장실', x:1255, y:985, r:50, color:'#6B7A8F', desc:'관장실입니다.', link:'#기관소개', linkLabel:'기관 소개' },
+      { name:'꿈지기실', x:1435, y:1015, r:70, color:'#6B7A8F', desc:'직원들이 일하는 사무실이에요. 문의와 접수를 도와드려요.', link:'#문의', linkLabel:'문의하기' },
+      { name:'안내실', x:1680, y:1010, r:40, color:'#EDE4D1', desc:'안내실입니다.', link:'#안내', linkLabel:'이용 안내' },
+      { name:'회의실', x:1590, y:1105, r:40, color:'#EDE4D1', desc:'안내실 옆 회의실이에요.', link:'#대관', linkLabel:'대관 신청' },
+      { name:'행복충전실', x:2110, y:640, r:180, color:'#EDE4D1', desc:'식사를 하는 곳이에요. 본관 정문에서 나가 바로 옆 식당 입구로 들어가요.', link:'#이용', linkLabel:'이용 방법' },
     ],
   };
   const F2_2D = {
@@ -364,7 +363,7 @@
       { name:'엘리베이터', x:1027, y:799, r:40, door:true, elev:true, useF:true },
       { name:'외부 계단', x:1729, y:1202, r:80, door:true, stair:1, outAt:[1130,1030] },
       { name:'대강당 외부 계단', x:2355, y:905, r:70, door:true, stair:1, outAt:[2100,1060] },
-      { name:'식당동 계단', x:1794, y:722, r:55, door:true, stair:1, useF:true, f1At:[1968,757] },
+      { name:'식당동 계단', x:1794, y:722, r:55, door:true, stair:1, useF:true, f1At:[1900,775] },
       { name:'비전마루(세미나실)', x:570, y:549, r:130, color:'#E4572E', desc:'세미나와 중간 규모 행사가 열리는 중강당이에요.', link:'#대관', linkLabel:'대관 신청' },
       { name:'미디어실', x:457, y:831, r:80, color:'#5BC8D8', desc:'영상과 미디어 활동을 하는 방이에요.', link:'#프로그램', linkLabel:'프로그램 보기' },
       { name:'조정실', x:707, y:892, r:50, color:'#6B7A8F', desc:'미디어실과 붙어 있는 조정실이에요.', link:'#프로그램', linkLabel:'프로그램 보기' },
@@ -477,7 +476,7 @@
   const SPRITES = { '청소년': 'img/sprite-youth.png', '학부모': 'img/sprite-parent.png', '강사·봉사자': 'img/sprite-volunteer.png', '직원': 'img/sprite-staff.png' };
   const ROBOT_SPRITE = 'img/sprite-robot.png';
   const SPRITE_DEFAULT = '청소년';
-  const NPC_POS = { out:[[1900,1140],[1300,1000],[2150,1080]], f1:[[1500,900],[909,853],[1825,807],[607,606]], f2:[[1482,958],[896,819],[1701,1040],[2250,850]], f3:[[1208,979],[1415,1030]] };
+  const NPC_POS = { out:[[1900,1140],[1300,1000],[2150,1080]], f1:[[1560,850],[1150,720],[700,920],[2150,650]], f2:[[1482,958],[896,819],[1701,1040],[2250,850]], f3:[[1208,979],[1415,1030]] };
   const SCENE_NAME = { out:'야외', f1:'1층', f2:'2층', f3:'3층 옥상' };
   const spriteEl = document.getElementById('sprite2d');
   function applyAvatar(){ spriteEl.style.backgroundImage = 'url(' + (SPRITES[who] || SPRITES[SPRITE_DEFAULT]) + ')'; }
