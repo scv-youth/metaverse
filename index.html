@@ -154,13 +154,13 @@
   #char2d.flip .sprite{ transform:scaleX(-1); }
   #char2d .glow{ bottom:2px; }
   @media (prefers-reduced-motion: reduce){ #char2d .sprite{ transition:none; } }
-  #npc2d{ position:absolute; width:84px; height:102px; transform:translate(-50%,-100%); }
-  #npc2d .bot{ width:84px; height:102px; margin:0 auto; background-repeat:no-repeat; background-size:420px 306px; background-position:0 0; filter:drop-shadow(0 6px 4px rgba(0,0,0,.25)); }
-  #npc2d{ transform-origin:50% 100%; }
+  #npc2d, .npc{ position:absolute; width:84px; height:102px; transform:translate(-50%,-100%); }
+  #npc2d .bot, .npc .bot{ width:84px; height:102px; margin:0 auto; background-repeat:no-repeat; background-size:420px 306px; background-position:0 0; filter:drop-shadow(0 6px 4px rgba(0,0,0,.25)); }
+  #npc2d, .npc{ transform-origin:50% 100%; }
   @keyframes hover{ from{ transform:translateY(0) } to{ transform:translateY(-6px) } }
-  #npc2d .bubble{ position:absolute; left:50%; top:-34px; transform:translateX(-50%); background:#fff; color:#1E2A3A; border:2px solid #2F7FD3; border-radius:14px; padding:6px 12px; font-size:14px; font-weight:700; white-space:nowrap; transition:opacity .2s; }
-  #npc2d.quiet .bubble{ opacity:0; }
-  #npc2d .bubble::after{ content:""; position:absolute; left:50%; bottom:-9px; width:14px; height:14px; background:#fff; border-right:2px solid #2F7FD3; border-bottom:2px solid #2F7FD3; transform:translateX(-50%) rotate(45deg); }
+  #npc2d .bubble, .npc .bubble{ position:absolute; left:50%; top:-34px; transform:translateX(-50%); background:#fff; color:#1E2A3A; border:2px solid #2F7FD3; border-radius:14px; padding:6px 12px; font-size:14px; font-weight:700; white-space:nowrap; transition:opacity .2s; }
+  #npc2d.quiet .bubble, .npc.quiet .bubble{ opacity:0; }
+  #npc2d .bubble::after, .npc .bubble::after{ content:""; position:absolute; left:50%; bottom:-9px; width:14px; height:14px; background:#fff; border-right:2px solid #2F7FD3; border-bottom:2px solid #2F7FD3; transform:translateX(-50%) rotate(45deg); }
   #where{ position:fixed; left:16px; top:calc(70px + env(safe-area-inset-top,0px)); z-index:5; background:rgba(30,42,58,.88); color:#fff; border-radius:14px; padding:10px 14px; font-size:14px; line-height:1.4; max-width:280px; }
   #where b{ display:block; font-family:"Jua",sans-serif; font-size:18px; font-weight:400; }
   #where small{ color:#C9D2E0; }
@@ -318,8 +318,8 @@
     spots: [
       { name:'정문', x:1105, y:870, r:60, door:true, enter:1 },
       { name:'행복충전실 입구', x:1380, y:812, r:65, door:true, enterDining:true },
-      { name:'외부 계단', x:968, y:1077, r:80, door:true, enter:2, useF:true, at:[1700,1160] },
-      { name:'대강당 외부 계단', x:2032, y:960, r:80, door:true, enter:2, useF:true, at:[2300,900] },
+      { name:'외부 계단', x:968, y:1077, r:80, door:true, enter:2, at:[1649,1142] },
+      { name:'대강당 외부 계단', x:2032, y:960, r:80, door:true, enter:2, at:[2295,825] },
       { name:'유스호스텔', x:817, y:1045, r:150, color:'#B5432F', desc:'수련관 남쪽에 있는 숙박동이에요. 캠프와 단체 수련 때 이용합니다.', link:'#숙박', linkLabel:'숙박 안내' },
       { name:'농구장', x:1892, y:1387, r:160, color:'#4F9A6A', desc:'유스호스텔 옆 야외 농구장이에요.', link:'#체육', linkLabel:'이용 방법' },
       { name:'북쪽 주차장', x:2419, y:352, r:200, color:'#A3ADB8', desc:'차로 오시면 북쪽 주차장을 이용하세요.', link:'#오시는길', linkLabel:'오시는 길' },
@@ -362,8 +362,8 @@
     spots: [
       { name:'내부 계단', x:1083, y:755, r:50, door:true, choose:[1,3], useF:true },
       { name:'엘리베이터', x:1027, y:799, r:40, door:true, elev:true, useF:true },
-      { name:'외부 계단', x:1729, y:1202, r:80, door:true, stair:1, useF:true, outAt:[1398,960] },
-      { name:'대강당 외부 계단', x:2355, y:905, r:70, door:true, stair:1, useF:true, outAt:[1398,960] },
+      { name:'외부 계단', x:1729, y:1202, r:80, door:true, stair:1, outAt:[1130,1030] },
+      { name:'대강당 외부 계단', x:2355, y:905, r:70, door:true, stair:1, outAt:[2100,1060] },
       { name:'식당동 계단', x:1794, y:722, r:55, door:true, stair:1, useF:true, f1At:[1968,757] },
       { name:'비전마루(세미나실)', x:570, y:549, r:130, color:'#E4572E', desc:'세미나와 중간 규모 행사가 열리는 중강당이에요.', link:'#대관', linkLabel:'대관 신청' },
       { name:'미디어실', x:457, y:831, r:80, color:'#5BC8D8', desc:'영상과 미디어 활동을 하는 방이에요.', link:'#프로그램', linkLabel:'프로그램 보기' },
@@ -443,7 +443,13 @@
     if (len > 0.1 && !panel.classList.contains('on')) {
       mx /= Math.max(len, 1); my /= Math.max(len, 1); const sp = 300 * dt;
       const nx = P2.x + mx * sp, ny = P2.y + my * sp * 0.75;
-      if (walkable2d(nx, P2.y)) P2.x = nx; if (walkable2d(P2.x, ny)) P2.y = ny;
+      if (walkable2d(nx, ny)) { P2.x = nx; P2.y = ny; }
+      else if (walkable2d(nx, P2.y)) { P2.x = nx; }
+      else if (walkable2d(P2.x, ny)) { P2.y = ny; }
+      else { // 벽에 비스듬히 부딪히면 벽을 따라 미끄러지기
+        const base = Math.atan2(my * 0.75, mx);
+        for (const da of [0.6, -0.6, 1.0, -1.0, 1.35, -1.35]) { const a = base + da, sx = P2.x + Math.cos(a) * sp * 0.8, sy = P2.y + Math.sin(a) * sp * 0.8; if (walkable2d(sx, sy)) { P2.x = sx; P2.y = sy; break; } }
+      }
       if (Math.abs(mx) > 0.2) P2.facing = mx > 0 ? 1 : -1;
     }
     if (keys['p']) { hint.textContent = '좌표 ' + Math.round(P2.x) + ', ' + Math.round(P2.y) + ' (' + scene2dKey + ')'; hint.classList.add('on'); place2d(); return; }
@@ -452,12 +458,13 @@
     else P2.walkT = 0;
     const fr = walking ? 1 + Math.floor(P2.walkT % 4) : 0;
     spriteEl.style.backgroundPosition = (-fr * 140) + 'px ' + (-(P2.row || 0) * 170) + 'px';
-    const nn = !!NB.home && Math.hypot(P2.x - NB.x, P2.y - NB.y) < 110; tickNpc(dt);
-    if (nn !== nearNpc) { nearNpc = nn; npc.classList.toggle('quiet', !nn); if (!panel.classList.contains('on')) updateHint(); }
+    const nn = tickNpcs(dt);
+    if (nn !== nearNpc) { nearNpc = nn; if (!panel.classList.contains('on')) updateHint(); }
     updateWhere(); updateMini();
     let found = null; for (const s of SCENES2D[scene2dKey].spots) { if (Math.hypot(P2.x - s.x, P2.y - s.y) < s.r) { found = s; break; } }
     if (found && found.enterDining) { goFloor2d('f1', [1949, 771]); return; }
     if (found && found.enter && !found.useF) { goFloorN(found.enter, found.at); return; }
+    if (found && found.stair && !found.useF && found.outAt) { goOutside(found.outAt); return; }
     if (found && found.exit) { goOutside(found.out || [1180, 930]); return; }
     if (found !== nearSpot) { nearSpot = found; if (!panel.classList.contains('on')) updateHint(); }
     place2d();
@@ -470,31 +477,42 @@
   const SPRITES = { '청소년': 'img/sprite-youth.png', '학부모': 'img/sprite-parent.png', '강사·봉사자': 'img/sprite-volunteer.png', '직원': 'img/sprite-staff.png' };
   const ROBOT_SPRITE = 'img/sprite-robot.png';
   const SPRITE_DEFAULT = '청소년';
-  const NPC_POS = { out:[1900,1140], f1:[1480,800], f2:[1500,860], f3:[1200,930] };
+  const NPC_POS = { out:[[1900,1140],[1300,1000],[2150,1080]], f1:[[1500,900],[909,853],[1825,807],[607,606]], f2:[[1482,958],[896,819],[1701,1040],[2250,850]], f3:[[1208,979],[1415,1030]] };
   const SCENE_NAME = { out:'야외', f1:'1층', f2:'2층', f3:'3층 옥상' };
-  const npc = document.getElementById('npc2d'); npc.querySelector('.bot').style.backgroundImage = 'url(' + ROBOT_SPRITE + ')';
-  let nearNpc = false;
   const spriteEl = document.getElementById('sprite2d');
   function applyAvatar(){ spriteEl.style.backgroundImage = 'url(' + (SPRITES[who] || SPRITES[SPRITE_DEFAULT]) + ')'; }
-  const NB = { x: 0, y: 0, tx: 0, ty: 0, wait: 0, t: 0, row: 0, flip: false, home: null };
-  const botEl = npc.querySelector('.bot');
-  function placeNpc(){ const p = NPC_POS[scene2dKey]; if (!p) { npc.style.display = 'none'; NB.home = null; return; } npc.style.display = ''; NB.home = p; NB.x = p[0]; NB.y = p[1]; NB.tx = p[0]; NB.ty = p[1]; NB.wait = 1.5; NB.row = 0; botEl.style.transform = ''; drawNpc(); }
-  function drawNpc(){ npc.style.left = NB.x + 'px'; npc.style.top = NB.y + 'px'; const cs = 0.5 + 0.4 * (NB.y / IMG2D.h); npc.style.transform = 'translate(-50%,-100%) scale(' + cs.toFixed(3) + ')'; }
-  function lineClear(x0, y0, x1, y1){ const n = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 12); for (let i = 1; i <= n; i++) { const f = i / n; if (!walkable2d(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f)) return false; } return true; }
-  function pickNpcTarget(){ const h = NB.home; for (let k = 0; k < 20; k++) { const a = Math.random() * Math.PI * 2, r = 60 + Math.random() * 200; const tx = h[0] + Math.cos(a) * r, ty = h[1] + Math.sin(a) * r * 0.6; if (walkable2d(tx, ty) && lineClear(NB.x, NB.y, tx, ty)) { NB.tx = tx; NB.ty = ty; return; } } NB.tx = NB.x; NB.ty = NB.y; }
-  function tickNpc(dt){
-    if (!NB.home) return;
-    if (nearNpc || panel.classList.contains('on')) { botEl.style.backgroundPosition = '0px ' + (-(NB.row) * 102) + 'px'; return; }
-    if (NB.wait > 0) { NB.wait -= dt; botEl.style.backgroundPosition = '0px ' + (-(NB.row) * 102) + 'px'; if (NB.wait <= 0) pickNpcTarget(); return; }
-    const dx = NB.tx - NB.x, dy = NB.ty - NB.y, d = Math.hypot(dx, dy);
-    if (d < 4) { NB.wait = 1.5 + Math.random() * 3; return; }
-    const sp = 90 * dt, nx = NB.x + dx / d * sp, ny = NB.y + dy / d * sp;
-    if (!walkable2d(nx, ny)) { NB.wait = 1; return; }
-    NB.x = nx; NB.y = ny; NB.t += dt * 6;
-    if (Math.abs(dy) > Math.abs(dx) * 0.8) NB.row = dy > 0 ? 0 : 2; else NB.row = 1;
-    NB.flip = NB.row === 1 && dx > 0; botEl.style.transform = NB.flip ? 'scaleX(-1)' : '';
-    const fr = 1 + Math.floor(NB.t % 4); botEl.style.backgroundPosition = (-fr * 84) + 'px ' + (-(NB.row) * 102) + 'px';
-    drawNpc();
+  const npcProto = document.getElementById('npc2d'); npcProto.style.display = 'none';
+  let nearNpc = false; let NPCS = [];
+  function makeNpc(p){
+    const el = npcProto.cloneNode(true); el.removeAttribute('id'); el.className = 'npc quiet'; el.style.display = '';
+    const bot = el.querySelector('.bot'); bot.style.backgroundImage = 'url(' + ROBOT_SPRITE + ')';
+    npcProto.parentNode.appendChild(el);
+    return { el, bot, x: p[0], y: p[1], tx: p[0], ty: p[1], home: p, wait: 1 + Math.random() * 2, t: Math.random() * 4, row: 0, near: false };
+  }
+  function placeNpc(){
+    NPCS.forEach(n => n.el.remove()); NPCS = [];
+    const list = NPC_POS[scene2dKey] || []; list.forEach(p => { const n = makeNpc(p); NPCS.push(n); drawNpc(n); });
+  }
+  function drawNpc(n){ n.el.style.left = n.x + 'px'; n.el.style.top = n.y + 'px'; const cs = 0.5 + 0.4 * (n.y / IMG2D.h); n.el.style.transform = 'translate(-50%,-100%) scale(' + cs.toFixed(3) + ')'; n.el.style.zIndex = Math.round(n.y); }
+  function lineClear(x0, y0, x1, y1){ const k = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 12); for (let i = 1; i <= k; i++) { const f = i / k; if (!walkable2d(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f)) return false; } return true; }
+  function pickNpcTarget(n){ const hm = n.home; for (let k = 0; k < 20; k++) { const a = Math.random() * Math.PI * 2, r = 60 + Math.random() * 200; const tx = hm[0] + Math.cos(a) * r, ty = hm[1] + Math.sin(a) * r * 0.6; if (walkable2d(tx, ty) && lineClear(n.x, n.y, tx, ty)) { n.tx = tx; n.ty = ty; return; } } n.tx = n.x; n.ty = n.y; }
+  function tickNpcs(dt){
+    let anyNear = false;
+    for (const n of NPCS) {
+      const near = Math.hypot(P2.x - n.x, P2.y - n.y) < 110; if (near !== n.near) { n.near = near; n.el.classList.toggle('quiet', !near); } anyNear = anyNear || near;
+      if (near || panel.classList.contains('on')) { n.bot.style.backgroundPosition = '0px ' + (-(n.row) * 102) + 'px'; continue; }
+      if (n.wait > 0) { n.wait -= dt; n.bot.style.backgroundPosition = '0px ' + (-(n.row) * 102) + 'px'; if (n.wait <= 0) pickNpcTarget(n); continue; }
+      const dx = n.tx - n.x, dy = n.ty - n.y, d = Math.hypot(dx, dy);
+      if (d < 4) { n.wait = 1.5 + Math.random() * 3; continue; }
+      const sp = 90 * dt, nx = n.x + dx / d * sp, ny = n.y + dy / d * sp;
+      if (!walkable2d(nx, ny)) { n.wait = 1; continue; }
+      n.x = nx; n.y = ny; n.t += dt * 6;
+      if (Math.abs(dy) > Math.abs(dx) * 0.8) n.row = dy > 0 ? 0 : 2; else n.row = 1;
+      n.bot.style.transform = (n.row === 1 && dx > 0) ? 'scaleX(-1)' : '';
+      const fr = 1 + Math.floor(n.t % 4); n.bot.style.backgroundPosition = (-fr * 84) + 'px ' + (-(n.row) * 102) + 'px';
+      drawNpc(n);
+    }
+    return anyNear;
   }
   // 공간 이름 표시
   const whereEl = document.getElementById('where');
