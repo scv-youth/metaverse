@@ -155,7 +155,8 @@
   #char2d .glow{ bottom:2px; }
   @media (prefers-reduced-motion: reduce){ #char2d .sprite{ transition:none; } }
   #npc2d{ position:absolute; width:84px; height:102px; transform:translate(-50%,-100%); }
-  #npc2d .bot{ width:84px; height:102px; margin:0 auto; background-repeat:no-repeat; background-size:420px 306px; background-position:0 0; animation:hover 1.6s infinite alternate ease-in-out; filter:drop-shadow(0 6px 4px rgba(0,0,0,.25)); }
+  #npc2d .bot{ width:84px; height:102px; margin:0 auto; background-repeat:no-repeat; background-size:420px 306px; background-position:0 0; filter:drop-shadow(0 6px 4px rgba(0,0,0,.25)); }
+  #npc2d{ transform-origin:50% 100%; }
   @keyframes hover{ from{ transform:translateY(0) } to{ transform:translateY(-6px) } }
   #npc2d .bubble{ position:absolute; left:50%; top:-34px; transform:translateX(-50%); background:#fff; color:#1E2A3A; border:2px solid #2F7FD3; border-radius:14px; padding:6px 12px; font-size:14px; font-weight:700; white-space:nowrap; transition:opacity .2s; }
   #npc2d.quiet .bubble{ opacity:0; }
@@ -451,7 +452,7 @@
     else P2.walkT = 0;
     const fr = walking ? 1 + Math.floor(P2.walkT % 4) : 0;
     spriteEl.style.backgroundPosition = (-fr * 140) + 'px ' + (-(P2.row || 0) * 170) + 'px';
-    const np = NPC_POS[scene2dKey]; const nn = !!np && Math.hypot(P2.x - np[0], P2.y - np[1]) < 110;
+    const nn = !!NB.home && Math.hypot(P2.x - NB.x, P2.y - NB.y) < 110; tickNpc(dt);
     if (nn !== nearNpc) { nearNpc = nn; npc.classList.toggle('quiet', !nn); if (!panel.classList.contains('on')) updateHint(); }
     updateWhere(); updateMini();
     let found = null; for (const s of SCENES2D[scene2dKey].spots) { if (Math.hypot(P2.x - s.x, P2.y - s.y) < s.r) { found = s; break; } }
@@ -475,7 +476,26 @@
   let nearNpc = false;
   const spriteEl = document.getElementById('sprite2d');
   function applyAvatar(){ spriteEl.style.backgroundImage = 'url(' + (SPRITES[who] || SPRITES[SPRITE_DEFAULT]) + ')'; }
-  function placeNpc(){ const p = NPC_POS[scene2dKey]; if (!p) { npc.style.display = 'none'; return; } npc.style.display = ''; npc.style.left = p[0] + 'px'; npc.style.top = p[1] + 'px'; }
+  const NB = { x: 0, y: 0, tx: 0, ty: 0, wait: 0, t: 0, row: 0, flip: false, home: null };
+  const botEl = npc.querySelector('.bot');
+  function placeNpc(){ const p = NPC_POS[scene2dKey]; if (!p) { npc.style.display = 'none'; NB.home = null; return; } npc.style.display = ''; NB.home = p; NB.x = p[0]; NB.y = p[1]; NB.tx = p[0]; NB.ty = p[1]; NB.wait = 1.5; NB.row = 0; botEl.style.transform = ''; drawNpc(); }
+  function drawNpc(){ npc.style.left = NB.x + 'px'; npc.style.top = NB.y + 'px'; const cs = 0.5 + 0.4 * (NB.y / IMG2D.h); npc.style.transform = 'translate(-50%,-100%) scale(' + cs.toFixed(3) + ')'; }
+  function lineClear(x0, y0, x1, y1){ const n = Math.ceil(Math.hypot(x1 - x0, y1 - y0) / 12); for (let i = 1; i <= n; i++) { const f = i / n; if (!walkable2d(x0 + (x1 - x0) * f, y0 + (y1 - y0) * f)) return false; } return true; }
+  function pickNpcTarget(){ const h = NB.home; for (let k = 0; k < 20; k++) { const a = Math.random() * Math.PI * 2, r = 60 + Math.random() * 200; const tx = h[0] + Math.cos(a) * r, ty = h[1] + Math.sin(a) * r * 0.6; if (walkable2d(tx, ty) && lineClear(NB.x, NB.y, tx, ty)) { NB.tx = tx; NB.ty = ty; return; } } NB.tx = NB.x; NB.ty = NB.y; }
+  function tickNpc(dt){
+    if (!NB.home) return;
+    if (nearNpc || panel.classList.contains('on')) { botEl.style.backgroundPosition = '0px ' + (-(NB.row) * 102) + 'px'; return; }
+    if (NB.wait > 0) { NB.wait -= dt; botEl.style.backgroundPosition = '0px ' + (-(NB.row) * 102) + 'px'; if (NB.wait <= 0) pickNpcTarget(); return; }
+    const dx = NB.tx - NB.x, dy = NB.ty - NB.y, d = Math.hypot(dx, dy);
+    if (d < 4) { NB.wait = 1.5 + Math.random() * 3; return; }
+    const sp = 90 * dt, nx = NB.x + dx / d * sp, ny = NB.y + dy / d * sp;
+    if (!walkable2d(nx, ny)) { NB.wait = 1; return; }
+    NB.x = nx; NB.y = ny; NB.t += dt * 6;
+    if (Math.abs(dy) > Math.abs(dx) * 0.8) NB.row = dy > 0 ? 0 : 2; else NB.row = 1;
+    NB.flip = NB.row === 1 && dx > 0; botEl.style.transform = NB.flip ? 'scaleX(-1)' : '';
+    const fr = 1 + Math.floor(NB.t % 4); botEl.style.backgroundPosition = (-fr * 84) + 'px ' + (-(NB.row) * 102) + 'px';
+    drawNpc();
+  }
   // 공간 이름 표시
   const whereEl = document.getElementById('where');
   function updateWhere(){
