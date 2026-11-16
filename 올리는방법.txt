@@ -1,0 +1,30 @@
+서천군청소년수련관 메타버스 — 배포 폴더
+======================================
+
+이 폴더 안의 파일을 그대로 서버(GitHub Pages)에 올리면 됩니다.
+
+[폴더 내용]
+ index.html        메타버스 본체 (이 파일 하나가 사이트)
+ img/              그림 (바깥·1~3층·캐릭터·로고·미리보기 이미지)
+ CNAME             meta.scvision.or.kr 주소 연결용 (GitHub가 읽음)
+ robots.txt, sitemap.xml   검색 등록용
+ favicon.ico       브라우저 탭 아이콘
+ 404.html          잘못된 주소로 오면 첫 화면으로 보냄
+ .nojekyll         GitHub Pages 설정 파일 (지우지 마세요)
+
+[GitHub Pages에 올리기]
+ 1. github.com 로그인 → 오른쪽 위 + → New repository
+    이름: metaverse / Public 선택 / Create repository
+ 2. Add file → Upload files → 이 폴더 안의 모든 파일과 img 폴더를 끌어다 놓기
+    (숨김 파일 .nojekyll 도 같이. 안 보이면 탐색기에서 "숨김 항목 표시")
+ 3. 아래 Commit changes 클릭
+ 4. Settings → Pages → Branch: main, 폴더: /(root) → Save
+ 5. 1~2분 뒤 https://<아이디>.github.io/metaverse/ 에서 열림
+
+[meta.scvision.or.kr 연결]
+ 6. 다우IDC에 CNAME 레코드 요청: 호스트 meta → 값 <아이디>.github.io
+ 7. Settings → Pages → Custom domain 에 meta.scvision.or.kr 입력 → Save
+ 8. 체크 표시가 뜨면 Enforce HTTPS 체크
+
+[수정할 때]
+ 새 파일을 받으면 같은 자리에 Upload files 로 덮어쓰기 → 1분 뒤 반영.

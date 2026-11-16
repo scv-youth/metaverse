@@ -154,8 +154,8 @@
   #char2d.flip .sprite{ transform:scaleX(-1); }
   #char2d .glow{ bottom:2px; }
   @media (prefers-reduced-motion: reduce){ #char2d .sprite{ transition:none; } }
-  #npc2d{ position:absolute; width:64px; height:110px; transform:translate(-50%,-100%); }
-  #npc2d svg{ width:64px; height:110px; display:block; animation:hover 1.6s infinite alternate ease-in-out; }
+  #npc2d{ position:absolute; width:84px; height:102px; transform:translate(-50%,-100%); }
+  #npc2d .bot{ width:84px; height:102px; margin:0 auto; background-repeat:no-repeat; background-size:420px 306px; background-position:0 0; animation:hover 1.6s infinite alternate ease-in-out; filter:drop-shadow(0 6px 4px rgba(0,0,0,.25)); }
   @keyframes hover{ from{ transform:translateY(0) } to{ transform:translateY(-6px) } }
   #npc2d .bubble{ position:absolute; left:50%; top:-34px; transform:translateX(-50%); background:#fff; color:#1E2A3A; border:2px solid #2F7FD3; border-radius:14px; padding:6px 12px; font-size:14px; font-weight:700; white-space:nowrap; transition:opacity .2s; }
   #npc2d.quiet .bubble{ opacity:0; }
@@ -230,17 +230,7 @@
     <img id="bg2d-f2" data-scene="f2" src="img/f2.jpg" alt="서천군청소년수련관 2층" style="display:none">
     <img id="bg2d-f3" data-scene="f3" src="img/f3.jpg" alt="서천군청소년수련관 3층 옥상" style="display:none">
     <div id="hot2d"></div>
-    <div id="npc2d" class="quiet"><div class="bubble">궁금한 점은 저에게 물어보세요</div><svg viewBox="0 0 64 110" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="32" cy="106" rx="20" ry="4" fill="rgba(0,0,0,.25)"/>
-        <rect x="18" y="48" width="28" height="40" rx="12" fill="#F5F5F5" stroke="#B9BDC0" stroke-width="2"/>
-        <rect x="10" y="54" width="8" height="24" rx="4" fill="#E6E8EA"/><rect x="46" y="54" width="8" height="24" rx="4" fill="#E6E8EA"/>
-        <rect x="21" y="86" width="9" height="14" rx="4" fill="#B9BDC0"/><rect x="34" y="86" width="9" height="14" rx="4" fill="#B9BDC0"/>
-        <rect x="14" y="14" width="36" height="34" rx="16" fill="#F5F5F5" stroke="#B9BDC0" stroke-width="2"/>
-        <rect x="20" y="22" width="24" height="18" rx="8" fill="#1E2A3A"/>
-        <circle cx="28" cy="31" r="3" fill="#5BC8D8"/><circle cx="36" cy="31" r="3" fill="#5BC8D8"/>
-        <line x1="32" y1="14" x2="32" y2="6" stroke="#B9BDC0" stroke-width="2"/><circle cx="32" cy="5" r="3" fill="#C8102E"/>
-        <rect x="26" y="60" width="12" height="8" rx="2" fill="#2F7FD3"/>
-      </svg></div>
+    <div id="npc2d" class="quiet"><div class="bubble">궁금한 점은 저에게 물어보세요</div><div class="bot"></div></div>
     <div id="char2d"><div class="glow"></div>
       <div class="sprite" id="sprite2d"></div>
       <div class="nick" id="nick2d">방문자</div>
@@ -476,11 +466,12 @@
 
 
   // ---- 아바타·NPC·공간 표시·미니맵·채팅·로딩·팝업 ----
-  const SPRITES = { '청소년': 'img/sprite-youth.png' };
+  const SPRITES = { '청소년': 'img/sprite-youth.png', '학부모': 'img/sprite-parent.png', '강사·봉사자': 'img/sprite-volunteer.png', '직원': 'img/sprite-staff.png' };
+  const ROBOT_SPRITE = 'img/sprite-robot.png';
   const SPRITE_DEFAULT = '청소년';
   const NPC_POS = { out:[1900,1140], f1:[1480,800], f2:[1500,860], f3:[1200,930] };
   const SCENE_NAME = { out:'야외', f1:'1층', f2:'2층', f3:'3층 옥상' };
-  const npc = document.getElementById('npc2d');
+  const npc = document.getElementById('npc2d'); npc.querySelector('.bot').style.backgroundImage = 'url(' + ROBOT_SPRITE + ')';
   let nearNpc = false;
   const spriteEl = document.getElementById('sprite2d');
   function applyAvatar(){ spriteEl.style.backgroundImage = 'url(' + (SPRITES[who] || SPRITES[SPRITE_DEFAULT]) + ')'; }
